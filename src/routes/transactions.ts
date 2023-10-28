@@ -6,9 +6,8 @@ import { checkSessionIdExists } from "../middlewares/check-session-id-exists"
 
 export async function transactionsRoutes(app: FastifyInstance) {
     app.addHook('preHandler', async (request, reply) => {
-        console.log(`[${request.method}], [${request.url}]`)
+        console.log(`[${request.method}], [${request}]`)
     })
-
 
     app.get('/', {
         preHandler: [checkSessionIdExists]
@@ -34,7 +33,6 @@ export async function transactionsRoutes(app: FastifyInstance) {
             session_id: sessionId,
             id,
         })
-        .andWhere('session_id')
        .first()
         return { transaction }
     })
